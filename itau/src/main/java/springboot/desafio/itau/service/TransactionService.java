@@ -22,4 +22,16 @@ public class TransactionService {
         return t.getDate().isBefore(OffsetDateTime.now());
     }
 
+    public void delete(){
+        for (Transaction transaction : listTransactions) {
+            System.out.println(transaction.getVal());
+        } 
+
+        this.listTransactions.clear();
+        System.out.println("Depois da limpeza");
+        for (Transaction transaction : listTransactions) {
+            System.out.println(transaction.getVal());
+        }
+    }
+
 }
