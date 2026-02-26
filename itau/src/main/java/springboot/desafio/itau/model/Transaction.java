@@ -1,23 +1,23 @@
-package model;
+package springboot.desafio.itau.model;
 
 import java.time.OffsetDateTime;
 
 public class Transaction {
-    private double val;
-    private OffsetDateTime date;
+    private double valor;
+    private OffsetDateTime dataHora;
 
     public Transaction(double val, OffsetDateTime date){
-        this.val = val;
-        this.date = date;
+        this.valor = val;
+        this.dataHora = date;
 
     }
 
     public double getVal() {
-        return val;
+        return valor;
     }
 
     public OffsetDateTime getDate() {
-        return date;
+        return dataHora;
     }
 
 }

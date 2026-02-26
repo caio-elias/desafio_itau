@@ -1,15 +1,19 @@
-package dto;
+package springboot.desafio.itau.dto;
 
 import java.time.OffsetDateTime;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+
 
 public record TransactionDto(
     @NotNull
-    double val,
+    @Positive
+    double valor,
 
     @NotNull
-    OffsetDateTime date
+    OffsetDateTime dataHora
 ) {
   
 }
