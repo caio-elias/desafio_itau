@@ -1,11 +1,13 @@
 package springboot.desafio.itau.service;
 
 import java.time.OffsetDateTime;
+import java.util.DoubleSummaryStatistics;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.springframework.stereotype.Service;
 
+import springboot.desafio.itau.dto.EstatistcDto;
 import springboot.desafio.itau.model.Transaction;
 
 @Service
@@ -23,15 +25,25 @@ public class TransactionService {
     }
 
     public void delete(){
-        for (Transaction transaction : listTransactions) {
-            System.out.println(transaction.getVal());
-        } 
-
         this.listTransactions.clear();
-        System.out.println("Depois da limpeza");
-        for (Transaction transaction : listTransactions) {
-            System.out.println(transaction.getVal());
-        }
+        
     }
 
+    public EstatistcDto getEstastiticas() {
+        OffsetDateTime limite = OffsetDateTime.now().minusSeconds(60);
+        DoubleSummaryStatistics stats = listTransactions.stream()
+            .filter(t -> t.getDate().isAfter(limite))
+            .mapToDouble(Transaction::getVal)
+            .summaryStatistics();
+        long count = stats.getCount();
+        return count == 0
+            ? new EstatistcDto(0, 0.0, 0.0, 0.0, 0.0)
+            : new EstatistcDto(
+                    count,
+                    stats.getSum(),
+                    stats.getAverage(),
+                    stats.getMin(),
+                    stats.getMax()
+            );
+    }
 }
